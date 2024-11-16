@@ -30,7 +30,7 @@ async function userLogin(req,res,next){
         const compared = bcrypt.compare(password, isPresent.password)
 
         if(compared){
-            const token = jwt.sign({name:isPresent.name,email:isPresent.email},"secret");
+            const token = jwt.sign({name:isPresent.name,email:isPresent.email,_id:isPresent._id},"secret");
 
             res.status(200).send({message:"Logged in successfully", token:token});
         }else{

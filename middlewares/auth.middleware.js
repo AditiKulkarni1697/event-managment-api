@@ -14,6 +14,12 @@ async function Authentication(req,res,next){
         return res.status(401).send({message:"Please login"}); 
     }
 
+    const user = await UserModel.findOne({email:verifyToken.email});
+
+        if(!user){
+            return res.status(403).send({message:"User Does Not Exist"});
+        }
+
     req.params.user = user;
 
     next();
@@ -42,7 +48,7 @@ async function Authorization(allowedRoles) {
 }
 }
 
-async function checkUser(req,res,next){
+async function checkIfAuthor(req,res,next){
     const event_id = req.params.event_id;
 
     const loginUser = req.params.user;
@@ -56,9 +62,6 @@ async function checkUser(req,res,next){
 
         const user = await UserModel.findOne({email:loginUser.email});
 
-        if(!user){
-            return res.status(403).send({message:"User Does Not Exist"});
-        }
 
         if(!event.manager.includes(user._id)){
             return res.status(403).send({message:"Access denied"});
@@ -70,4 +73,4 @@ async function checkUser(req,res,next){
     }
 }
 
-module.exports = {Authentication, Authorization, checkUser}
+module.exports = {Authentication, Authorization, checkIfAuthor}
