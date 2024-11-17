@@ -2,11 +2,13 @@
 const express = require("express");
 const {connection} = require("./db/mongodb");
 const { userRouter } = require("./routes/user.routes");
+const { eventRouter } = require("./routes/event.routes");
 require("dotenv").config();
 
 const app = express();
 
 app.use("/user", userRouter);
+app.use("/event", eventRouter)
 
 app.get("/",(req,res)=>{
     res.send("Welcome");

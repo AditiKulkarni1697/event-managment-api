@@ -8,6 +8,7 @@ async function Authentication(req,res,next){
         return res.status(401).send({message:"Please login"}); 
     }
 
+    try{
     const verifyToken = jwt.verify(token,"secret");
 
     if(!verifyToken){
@@ -23,10 +24,13 @@ async function Authentication(req,res,next){
     req.params.user = user;
 
     next();
+    }catch(err){
+        res.status(500).send({message:"Internal Server Error"});
+    }
    
 }
 
-async function Authorization(allowedRoles) {
+function Authorization(allowedRoles=[]) {
 
     return async function(req,res,next){
     const token = req.headers.authorization;
@@ -35,17 +39,23 @@ async function Authorization(allowedRoles) {
         return res.status(401).send({message:"Please login"});
     }
 
-    const verifyToken = jwt.verify(token,"secret");
+    try{
+        const verifyToken = jwt.verify(token,"secret");
 
-    const userDetails = await UserModel.findOne({email:verifyToken.email});
+        const userDetails = await UserModel.findOne({email:verifyToken.email});
 
-    if(!userDetails || !allowedRoles.includes(userDetails.role)){
+        if(!userDetails || !allowedRoles.includes(userDetails.role)){
         return res.status(403).send({message:"Access denied"})
+        }
+
+        next();
+    }catch(err){
+        res.status(500).send({message:"Internal Server Error"});
     }
-
-    next();
-
 }
+
+
+
 }
 
 async function checkIfAuthor(req,res,next){

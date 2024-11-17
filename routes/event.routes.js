@@ -6,8 +6,10 @@ const { Authentication, Authorization, checkIfAuthor} = require("../middlewares/
 const eventRouter = express.Router();
 
 eventRouter
-.post("/", Authentication, Authorization(["event-manager"]), eventValidation, createEvent)
-.put("/:event_id", Authentication, Authorization(["event-manager"]),checkIfAuthor, updateEvent)
+.post("/", Authentication, Authorization("event-manager"), eventValidation, createEvent)
+.put("/:event_id", Authentication, Authorization("event-manager"),checkIfAuthor, updateEvent)
 .patch("/participant/:event_id", Authentication, participant_register)
 .get("/", Authentication, getEvent)
-.delete("/:id", Authentication, Authorization(["event-manager"]), checkIfAuthor,deleteEvent)
+.delete("/:id", Authentication, Authorization("event-manager"), checkIfAuthor,deleteEvent)
+
+module.exports = {eventRouter}
