@@ -3,11 +3,13 @@ const express = require("express");
 const {connection} = require("./db/mongodb");
 const { userRouter } = require("./routes/user.routes");
 const { eventRouter } = require("./routes/event.routes");
-const logger = require("./helpers/logger");
+const {logger, morganMiddleware} = require("./helpers/logger");
 require("dotenv").config();
 
 const app = express();
 app.use(express.json())
+
+app.use(morganMiddleware);
 
 app.use("/user", userRouter);
 app.use("/event", eventRouter)

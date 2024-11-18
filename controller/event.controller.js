@@ -1,7 +1,7 @@
 const { sendMail } = require("../helpers/emailSender");
 const { getEmailUsingId } = require("../helpers/getEmailUsingId");
 const { EventModel } = require("../models/event.model");
-const logger = require("../helpers/logger.js");
+const {logger} = require("../helpers/logger.js");
 
 
 async function createEvent(req, res, next) {
@@ -123,7 +123,7 @@ async function deleteEvent(req, res, next) {
       `Hello there, \n We regret to inform that ${deletedEvent.title} event has been deleted.\n Kindly take the note`
     );
 
-    console.log("delete mail in deleteEvent", deleteEvent);
+    
 
     res.status(200).send({ message: "Event deleted successfully" });
   } catch (err) {

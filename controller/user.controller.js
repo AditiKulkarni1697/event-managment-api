@@ -1,7 +1,7 @@
 const {UserModel} = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const logger = require("../helpers/logger");
+const {logger} = require("../helpers/logger");
 
 async function userRegistration(req,res,next){
     const {name, email, password} = req.body;
@@ -61,7 +61,6 @@ async function updateUserRole(req,res,next){
 
     }catch(err){
 logger.error(err.message);
-        console.log("error from updateUserRole", err.message)
         res.status(500).send({message:"Internal server error"})
     }
 }

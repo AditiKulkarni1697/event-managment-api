@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const logger = require("./logger");
+const {logger} = require("./logger");
 
 require("dotenv").config();
 
@@ -13,14 +13,17 @@ async function sendMail(emailArray, subject, content){
           },
         })
 
-        const recepients_emails = emailArray.join(", ")
+        const recepients_emails = emailArray.join(", ");
 
+        
         const mailOptions = {
             from: process.env.systemEmail,
             to: recepients_emails,
             subject: subject,
             html: content
         };
+
+
 
         const send = await transpoter.sendMail(mailOptions);
 

@@ -19,7 +19,6 @@ const validationResult = schema.validate({title, date, time, desc, participant_l
 
 
 if(validationResult.error){
-  console.log("error in validationResult",validationResult, validationResult.error.details)
 
     return res.status(400).send({
         message: 'Invalid event data. Please check your input.',
