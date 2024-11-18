@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const logger = require("./logger");
 
 require("dotenv").config();
 
@@ -25,7 +26,7 @@ async function sendMail(emailArray, subject, content){
 
         return send;
     }catch(err){
-logger.error('Error message', err.message);
+logger.error(err.message);
         return err.message
     }
 }

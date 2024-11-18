@@ -14,7 +14,7 @@ async function createEvent(req, res, next) {
 
     res.status(201).send({ message: "Event created successfully" });
   } catch (err) {
-    logger
+    logger.error(err.message);
     res.status(500).send({ message: "Internal Server error" });
   }
 }
@@ -40,7 +40,7 @@ async function updateEvent(req, res, next) {
 
     res.status(200).send({ message: "Event updated successfully" });
   } catch (err) {
-    logger.error("Error message", err.message);
+    logger.error(err.message);
     res.status(500).send({ message: "Internal Server error" });
   }
 }
@@ -74,7 +74,7 @@ async function participant_register(req, res, next) {
       .status(200)
       .send({ message: "Participant successfully registered for event" });
   } catch (err) {
-    logger.error("Error message", err.message);
+    logger.error(err.message);
     res.status(500).send({ message: "Internal Server Error" });
   }
 }
@@ -96,7 +96,7 @@ async function getEvent(req, res, next) {
 
     res.status(200).send({ message: events });
   } catch (err) {
-    logger.error("Error message", err.message);
+    logger.error(err.message);
     res.status(500).send({ message: "Internal Server Error" });
   }
 }
@@ -127,7 +127,7 @@ async function deleteEvent(req, res, next) {
 
     res.status(200).send({ message: "Event deleted successfully" });
   } catch (err) {
-    logger.error("Error message", err.message);
+    logger.error(err.message);
     res.status(500).send({ message: "Internal Server Error" });
   }
 }

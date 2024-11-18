@@ -1,4 +1,5 @@
 const {UserModel} = require("../models/user.model");
+const logger = require("./logger");
 
 async function getEmailUsingId(userIds){
 
@@ -10,7 +11,7 @@ async function getEmailUsingId(userIds){
 
         return convertedArray;
     }catch(err){
-logger.error('Error message', err.message);
+logger.error(err.message);
         return err.message
     }
 
