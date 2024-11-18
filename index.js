@@ -6,6 +6,7 @@ const { eventRouter } = require("./routes/event.routes");
 require("dotenv").config();
 
 const app = express();
+app.use(express.json())
 
 app.use("/user", userRouter);
 app.use("/event", eventRouter)
@@ -19,6 +20,7 @@ app.listen(process.env.PORT,async()=>{
         await connection;
         console.log("MongodDB is connected to server")
     }catch(err){
+logger.error('Error message', err.message);
         console.log("error in connecting to database", err.message)
     }
     console.log(`Server is running at port ${process.env.PORT}`);

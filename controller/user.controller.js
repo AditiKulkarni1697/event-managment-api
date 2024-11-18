@@ -13,6 +13,7 @@ try{
     res.status(201).send({message:" User registered successfully"})
 
 }catch(err){
+logger.error('Error message', err.message);
     res.status(500).send({message:"Internal server error"})
 }
 };
@@ -27,7 +28,7 @@ async function userLogin(req,res,next){
             res.status(400).send({message:"Wrong credentials"})
         }
 
-        const compared = bcrypt.compare(password, isPresent.password)
+        const compared = await bcrypt.compare(password, isPresent.password)
 
         if(compared){
             const token = jwt.sign({name:isPresent.name,email:isPresent.email,_id:isPresent._id},"secret");
@@ -37,25 +38,29 @@ async function userLogin(req,res,next){
             res.status(400).send({message:"Wrong credentials"});
         }
     }catch(err){
+logger.error('Error message', err.message);
     res.status(500).send({message:"Internal server error"});
     }
 }
 
 async function updateUserRole(req,res,next){
-    const {id, role} = req.body;
+    const id = req.params.id;
+    const {role} = req.body;
 
     try{
-        const isPresent = await UserModel.findOne({_id:id})
+        const isPresent = await UserModel.findById(id)
 
         if(!isPresent){
             res.status(404).send({message:"No User found"})
         }
-
+        
         await UserModel.findByIdAndUpdate({_id:id},{role:role});
 
         res.status(200).send({message:"User role updated successfully"})
 
     }catch(err){
+logger.error('Error message', err.message);
+        console.log("error from updateUserRole", err.message)
         res.status(500).send({message:"Internal server error"})
     }
 }

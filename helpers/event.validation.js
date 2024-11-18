@@ -1,5 +1,6 @@
 const Joi = require("joi");
-const moment = require('moment');
+const moment = require('moment-timezone');
+
 
 const schema = Joi.object({
     title: Joi.string().min(3).max(50).required(),
@@ -16,7 +17,10 @@ date = convertToISO(date);
 
 const validationResult = schema.validate({title, date, time, desc, participant_list});
 
+
 if(validationResult.error){
+  console.log("error in validationResult",validationResult, validationResult.error.details)
+
     return res.status(400).send({
         message: 'Invalid event data. Please check your input.',
       });
@@ -27,7 +31,7 @@ next();
 
 function convertToISO(dateString) {
     const momentDate = moment(dateString, 'DD/MM/YYYY');
-    return momentDate.utc().set({hour: 0, minute: 0, second: 0}).toISOString();
+    return momentDate.tz('Asia/Kolkata').set({hour: 0, minute: 0, second: 0}).toISOString();
   }
 
 module.exports = {eventValidation};

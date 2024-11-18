@@ -1,4 +1,4 @@
-const UserModel = require("../models/user.model");
+const {UserModel} = require("../models/user.model");
 
 async function getEmailUsingId(userIds){
 
@@ -10,6 +10,7 @@ async function getEmailUsingId(userIds){
 
         return convertedArray;
     }catch(err){
+logger.error('Error message', err.message);
         return err.message
     }
 

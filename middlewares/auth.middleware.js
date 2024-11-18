@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { UserModel } = require("../models/user.model");
+const { EventModel } = require("../models/event.model");
 
 async function Authentication(req,res,next){
     const token = req.headers.authorization;
@@ -25,6 +26,8 @@ async function Authentication(req,res,next){
 
     next();
     }catch(err){
+logger.error('Error message', err.message);
+        console.log("error from Authentication", err.message)
         res.status(500).send({message:"Internal Server Error"});
     }
    
@@ -50,6 +53,8 @@ function Authorization(allowedRoles=[]) {
 
         next();
     }catch(err){
+logger.error('Error message', err.message);
+        console.log("error from Authorization", err.message)
         res.status(500).send({message:"Internal Server Error"});
     }
 }
@@ -79,6 +84,8 @@ async function checkIfAuthor(req,res,next){
 
         next();
     }catch(err){
+logger.error('Error message', err.message);
+        console.log("error in checkIfAuthor",err.message)
         res.status(500).send({message:"Internal Server Error"});
     }
 }

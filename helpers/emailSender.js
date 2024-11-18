@@ -25,6 +25,7 @@ async function sendMail(emailArray, subject, content){
 
         return send;
     }catch(err){
+logger.error('Error message', err.message);
         return err.message
     }
 }

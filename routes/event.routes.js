@@ -10,6 +10,6 @@ eventRouter
 .put("/:event_id", Authentication, Authorization(["event-manager"]),checkIfAuthor, updateEvent)
 .patch("/participant/:event_id", Authentication, participant_register)
 .get("/", Authentication, getEvent)
-.delete("/:id", Authentication, Authorization(["event-manager"]), checkIfAuthor,deleteEvent)
+.delete("/:event_id", Authentication, Authorization(["event-manager"]), checkIfAuthor,deleteEvent)
 
 module.exports = {eventRouter}
