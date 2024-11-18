@@ -1,7 +1,7 @@
 const { sendMail } = require("../helpers/emailSender");
 const { getEmailUsingId } = require("../helpers/getEmailUsingId");
 const { EventModel } = require("../models/event.model");
-
+const logger = require("../helpers/logger.js");
 
 
 async function createEvent(req, res, next) {
@@ -14,7 +14,7 @@ async function createEvent(req, res, next) {
 
     res.status(201).send({ message: "Event created successfully" });
   } catch (err) {
-    logger.error("Error message", err.message);
+    logger
     res.status(500).send({ message: "Internal Server error" });
   }
 }
