@@ -132,10 +132,10 @@ async function deleteEvent(req, res, next) {
   }
 }
 
-//1. check email sending when updated and deleted the event
-//2. add error logging and success logging
+
 //3. test cases
 //4. security during form submission, api call limit per sec
+//5. Readme file
 
 module.exports = {
   createEvent,
