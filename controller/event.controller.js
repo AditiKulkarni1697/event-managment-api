@@ -1,8 +1,7 @@
 const { sendMail } = require("../helpers/emailSender");
 const { getEmailUsingId } = require("../helpers/getEmailUsingId");
 const { EventModel } = require("../models/event.model");
-const {logger} = require("../helpers/logger.js");
-
+const { logger } = require("../helpers/logger.js");
 
 async function createEvent(req, res, next) {
   const { title, date, time, desc } = req.body;
@@ -123,15 +122,12 @@ async function deleteEvent(req, res, next) {
       `Hello there, \n We regret to inform that ${deletedEvent.title} event has been deleted.\n Kindly take the note`
     );
 
-    
-
     res.status(200).send({ message: "Event deleted successfully" });
   } catch (err) {
     logger.error(err.message);
     res.status(500).send({ message: "Internal Server Error" });
   }
 }
-
 
 //3. test cases
 //4. security during form submission, api call limit per sec
