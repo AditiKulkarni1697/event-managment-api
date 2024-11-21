@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const { UserModel } = require("../../../models/user.model");
-const { required } = require("joi");
+
 
 jest.mock("mongoose", () => ({
   Schema: jest.fn(),
